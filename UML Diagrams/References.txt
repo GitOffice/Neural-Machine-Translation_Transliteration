@@ -1,0 +1,15 @@
+Manually raising (throwing) an exception in Python
+https://stackoverflow.com/questions/2052390/manually-raising-throwing-an-exception-in-python
+
+Built-in Exceptions
+https://docs.python.org/3/library/exceptions.html
+
+How to make type cast for python custom class
+https://stackoverflow.com/questions/31446603/how-to-make-type-cast-for-python-custom-class
+
+Static methods in Python?
+https://stackoverflow.com/questions/735975/static-methods-in-python
+
+Python static methods - how to call a method from another method
+https://stackoverflow.com/questions/1859959/python-static-methods-how-to-call-a-method-from-another-method
+
