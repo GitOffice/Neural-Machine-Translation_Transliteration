@@ -1,13 +1,13 @@
 
 class AVLnode(object):
-	
+
 	def __init__(self, key, value):
 		self.key = key
 		self.value = value
 		self.height = 0
 		self.leftChild = None
 		self.rightChild = None
-		
+
 	def visit(self):
 		print("(height:%s, key:%s, value:%s)" % (self.height, self.key, self.value))
 
@@ -26,7 +26,7 @@ class AVL(object):
 			node.leftChild = self.insertNode(key, value, node.leftChild)
 		else:
 			node.rightChild = self.insertNode(key, value, node.rightChild)
-		node.height = max( self.calcHeight(node.leftChild), self.calcHeight(node.rightChild) ) + 1		
+		node.height = max( self.calcHeight(node.leftChild), self.calcHeight(node.rightChild) ) + 1
 		return self.settleViolation(key, node)
 
 	def remove(self, key):
@@ -57,7 +57,7 @@ class AVL(object):
 				tempNode = node.leftChild
 				del node
 				return tempNode
-				
+
 			# Removing node with two children...
 			tempNode = self.getPredecessor(node.leftChild)
 			node.key = tempNode.key
@@ -66,8 +66,8 @@ class AVL(object):
 		if not node:
 			return node # if the tree had just a single node
 		
-		node.height = max( self.calcHeight(node.leftChild) , self.calcHeight(node.rightChild) ) + 1
-		
+		node.height = max( self.calcHeight(node.leftChild), self.calcHeight(node.rightChild) ) + 1
+
 		balance = self.calcBalance(node)
 		
 		# doubly left heavy situation

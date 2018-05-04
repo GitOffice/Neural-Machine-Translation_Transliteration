@@ -1,11 +1,11 @@
 
 class TSTnode(object):
-	def __init__(self, key, value=None):
+	def __init__(self, key):
 		"""
 		key: one of the word's characters
 		"""
 		self.key = key
-		self.value = value
+		self.value = None
 		self.leftNode = None
 		self.middleNode = None
 		self.rightNode = None
@@ -18,6 +18,10 @@ class TST(object):
 		self.rootNode = self.putItem(self.rootNode, key, value, 0)
 
 	def putItem(self, node, key, value, index):
+		# for debugging purposes
+		#print(f'key: {key}, index: {index}')
+		#print('.', end='')
+		
 		"""
 			node 	the node where we want to add the (key, value) pair
 			index 	index in the key string
@@ -25,7 +29,7 @@ class TST(object):
 		c = key[index]
 		
 		if node == None:
-			node = TSTnode(c, value)
+			node = TSTnode(c)
 			
 		if c < node.key:
 			node.leftNode = self.putItem(node.leftNode, key, value, index)
@@ -35,7 +39,7 @@ class TST(object):
 			node.middleNode = self.putItem(node.middleNode, key, value, index+1)
 		else:
 			node.value = value
-		return node;
+		return node
 		
 	def get(self, key):
 		node = self.getItem(self.rootNode, key, 0)

@@ -15,12 +15,14 @@ class SaveableAVL(object):
 		self.filepath = filepath
 		self.avl = None
 	
-	def load(self, createIfNotFound=False):
-		if createIfNotFound:
-			# create an AVL object and save it
+	def load(self):
+		try:
+			# if the file exists, load it
+			self.avl = PickleSaver.load(self.filepath)
+		except FileNotFoundError:
+			# else create a new instance and save it
 			self.avl = AVL()
 			PickleSaver.save(self.avl, self.filepath)
-		self.avl = PickleSaver.load(self.filepath)
 	
 	def save(self):
 		PickleSaver.save(self.avl, self.filepath)
@@ -37,7 +39,7 @@ class SaveableAVL(object):
 
 if __name__ == '__main__':
 	avl = SaveableAVL('avl.pickle')
-	avl.load(True)
+	avl.load()
 	#print(type(avl))
 	print(avl.get('a'))
 	avl.put('a', [1,2,3])

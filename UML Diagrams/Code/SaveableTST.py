@@ -15,12 +15,14 @@ class SaveableTST(object):
 		self.filepath = filepath
 		self.tst = None
 	
-	def load(self, createIfNotFound=False):
-		if createIfNotFound:
-			# create a TST object and save it
+	def load(self):
+		try:
+			# if the file exists, load it
+			self.tst = PickleSaver.load(self.filepath)
+		except FileNotFoundError:
+			# else create a new instance and save it
 			self.tst = TST()
-			self.save()
-		self.tst = PickleSaver.load(self.filepath)
+			PickleSaver.save(self.tst, self.filepath)
 	
 	def save(self):
 		PickleSaver.save(self.tst, self.filepath)
@@ -37,7 +39,7 @@ class SaveableTST(object):
 
 if __name__ == '__main__':
 	tst = SaveableTST('tst.pickle')
-	tst.load(True)
+	tst.load()
 	#print(type(avl))
 	print(tst.get('abc'))
 	tst.put('abc', [1,2,3])
