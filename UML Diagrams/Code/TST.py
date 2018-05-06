@@ -1,5 +1,6 @@
 
 class TSTnode(object):
+	
 	def __init__(self, key):
 		"""
 		key: one of the word's characters
@@ -11,6 +12,10 @@ class TSTnode(object):
 		self.rightNode = None
 		
 class TST(object):
+
+	# used to generate unique IDs to created instances
+	NbInstances = 0
+	
 	def __init__(self):
 		self.rootNode = None
 
@@ -18,10 +23,6 @@ class TST(object):
 		self.rootNode = self.putItem(self.rootNode, key, value, 0)
 
 	def putItem(self, node, key, value, index):
-		# for debugging purposes
-		#print(f'key: {key}, index: {index}')
-		#print('.', end='')
-		
 		"""
 			node 	the node where we want to add the (key, value) pair
 			index 	index in the key string
@@ -38,7 +39,10 @@ class TST(object):
 		elif index < len(key) - 1:
 			node.middleNode = self.putItem(node.middleNode, key, value, index+1)
 		else:
-			node.value = value
+			# assign the next ID to this node
+			TST.NbInstances += 1
+			node.value = TST.NbInstances
+
 		return node
 		
 	def get(self, key):

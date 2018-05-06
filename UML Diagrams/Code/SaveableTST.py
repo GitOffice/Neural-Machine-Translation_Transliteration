@@ -29,6 +29,8 @@ class SaveableTST(object):
 	
 	def put(self, key, value):
 		self.tst.put(key, value)
+		# save the embedding in a file
+		PickleSaver.save(value, f'embeddings/tst.{TST.NbInstances}.pickle')
 	
 	def remove(self, key):
 		self.tst.remove(key)

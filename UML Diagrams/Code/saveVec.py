@@ -7,7 +7,7 @@ Created on Thu Apr 26 10:53:09 2018
 """
 
 from SaveableTST import SaveableTST
-from SaveableAVL import SaveableAVL
+#from SaveableAVL import SaveableAVL
 
 # Text Progress Bar in the Console
 # https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
@@ -33,8 +33,8 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
     if iteration == total: 
         print()
 
-#vecFilepath = 'ShakespeareModel.vec'
-vecFilepath = 'crawl-300d-2M.vec'
+vecFilepath = 'ShakespeareModel.vec'
+#vecFilepath = 'crawl-300d-2M.vec'
 
 tstFilepath = f'tst.{vecFilepath}.pickle'
 avlFilepath = f'avl.{vecFilepath}.pickle'
@@ -45,17 +45,24 @@ tst.load()
 #avl = SaveableAVL(avlFilepath)
 #avl.load()
 
-nbTokens = 2000000
+#nbTokens = 2000000
+nbTokens = None
 
 # Initial call to print 0% progress
-printProgressBar(0, nbTokens, prefix = 'Progress:', suffix = 'Complete', decimals = 2, length = 50)
+#printProgressBar(0, nbTokens, prefix = 'Progress:', suffix = 'Complete', decimals = 2, length = 50)
 
-packetSize = 1000
+#packetSize = 1000
 lineNumber = 0
 with open(vecFilepath) as vecFile:
 	for line in vecFile:
 		lineNumber += 1
 		lineParts = line.split()
+
+		if lineNumber == 1:	# first line
+			# the first line contains the number of lines in this file and the vector length separated by a space
+			nbTokens = int(lineParts[0])
+			continue # move on to the next iteration
+
 		key = lineParts[0]
 		del lineParts[0]
 		embedding = ' '.join(lineParts)
@@ -68,12 +75,12 @@ with open(vecFilepath) as vecFile:
 		tst.put(key, embedding)
 			#print(lineNumber, "key:", key, "--> tst")
 		#print(lineNumber, key)
-		if lineNumber % packetSize == 0:
-				print("Saving...")
-				#avl.save()
-				#avl.load()
-				tst.save()
-				tst.load()
+#		if lineNumber % packetSize == 0:
+#				print("Saving...")
+#				#avl.save()
+#				#avl.load()
+#				tst.save()
+#				tst.load()
 		printProgressBar(lineNumber, nbTokens, prefix = 'Progress:', suffix = 'Complete', decimals = 2, length = 50)
 
 #print("Saving AVL...")
