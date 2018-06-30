@@ -7,7 +7,6 @@ Created on Fri May  4 00:39:26 2018
 """
 
 from Tokenizer import Tokenizer
-from Embedder import Embedder
 
 class Translator(object):
 	
